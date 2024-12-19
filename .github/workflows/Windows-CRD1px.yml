@@ -1,6 +1,6 @@
-name: Windows-CRD1px
+name: Setup Windows
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       authcode:
@@ -9,45 +9,27 @@ on:
       pincode:
         description: 'Six digit Pin'
         required: true
-  
+
 jobs:
-  build:
+  setup:
     runs-on: windows-latest
 
     steps:
-    # Checkout do repositório
-    - name: Checkout repository
-      uses: actions/checkout@v2  # Usando o checkout oficial
+      # Baixar o repositório
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # Depuração: Listar o conteúdo do diretório
-    - name: List repository files
-      run: dir
-      shell: cmd
+      # Definir variáveis do fluxo de trabalho
+      - name: Set variables
+        run: |
+          $authcode = '${{ github.event.inputs.authcode }}'
+          $pincode = '${{ github.event.inputs.pincode }}'
+          Write-Host "Starting setup with authcode: $authcode and pin: $pincode"
 
-    # Garantir que o script setup.ps1 é executável
-    - name: Make setup.ps1 executable
-      run: |
-        if (!(Test-Path "./setup.ps1")) { 
-          Write-Error "setup.ps1 not found in current directory" 
-        }
-        Write-Host "setup.ps1 found, proceeding with execution"
-      shell: pwsh
-
-    # Executar o script setup.ps1
-    - name: Initializing Setup
-      shell: pwsh
-      run: ./setup.ps1
-
-    # Executar comando com inputs do workflow
-    - name: Starting CRD
-      shell: pwsh
-      run: |
-        $authcode = '${{ github.event.inputs.authcode }}'
-        $pincode = '${{ github.event.inputs.pincode }}'
-        Write-Host "Starting CRD with authcode: $authcode and pin: $pincode"
-
-    # Timeout para manter a conexão ativa
-    - name: Keep Alive
-      shell: pwsh
-      run: ./timeout.ps1
+      # Executar o setup.ps1
+      - name: Run setup.ps1
+        shell: pwsh
+        run: |
+          Write-Host "Running setup.ps1..."
+          .\setup.ps1
 
