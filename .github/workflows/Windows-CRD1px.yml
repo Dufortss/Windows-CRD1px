@@ -15,16 +15,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    # Baixar o repositório
+    # Checkout do repositório
     - name: Checkout repository
-      uses: Dufortss/Windows-CRD1px
+      uses: actions/checkout@v2  # Usando o checkout oficial
 
-    # Depurar: Listar o conteúdo do diretório
+    # Depuração: Listar o conteúdo do diretório
     - name: List repository files
       run: dir
       shell: cmd
 
-    # Garantir que o script é executável (se necessário)
+    # Garantir que o script setup.ps1 é executável
     - name: Make setup.ps1 executable
       run: |
         if (!(Test-Path "./setup.ps1")) { 
