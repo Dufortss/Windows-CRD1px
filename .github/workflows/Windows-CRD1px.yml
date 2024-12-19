@@ -1,6 +1,5 @@
-name: Setup Windows
-
-on:
+name: Windows-CRD1px
+on: 
   workflow_dispatch:
     inputs:
       authcode:
@@ -9,26 +8,15 @@ on:
       pincode:
         description: 'Six digit Pin'
         required: true
-
+  
 jobs:
-  setup:
+  build:
     runs-on: windows-latest
-
     steps:
-      # Baixar o repositório
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      # Definir variáveis do fluxo de trabalho
-      - name: Set variables
-        run: |
-          $authcode = '${{ github.event.inputs.authcode }}'
-          $pincode = '${{ github.event.inputs.pincode }}'
-          Write-Host "Starting setup with authcode: $authcode and pin: $pincode"
-
-      # Executar o setup.ps1
-      - name: setup.ps1
-        shell: pwsh
-        run: |
-          Write-Host "Running setup.ps1..."
-          .\setup.ps1
+    - uses: actions/checkout@v2
+    - name: Initializing Setup
+      run: ./setup.ps1
+    - name: Starting CRD
+      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+    - name: Keep Alive
+      run: ./timeout.ps1
