@@ -1,42 +1,34 @@
-yaml
-name: Olá
+name: Setup Windows
+
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      authcode:
+        description: 'Enter CRD code'
+        required: true
+      pincode:
+        description: 'Six digit Pin'
+        required: true
+
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+  setup:
+    runs-on: windows-latest
+
     steps:
-      -
-        name: Checkout
+      # Baixar o repositório
+      - name: Checkout repository
         uses: actions/checkout@v2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHRC_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: |
-            jamtur01/animal-farm-nodejs:latest
-            ghcr.io/jamtur01/animal-farm-nodejs:latest
+
+      # Definir variáveis do fluxo de trabalho
+      - name: Set variables
+        run: |
+          $authcode = '${{ github.event.inputs.authcode }}'
+          $pincode = '${{ github.event.inputs.pincode }}'
+          Write-Host "Starting setup with authcode: $authcode and pin: $pincode"
+
+      # Executar o setup.ps1
+      - name: setup.ps1
+        shell: pwsh
+        run: |
+          Write-Host "Running setup.ps1..."
+          .\setup.ps1
