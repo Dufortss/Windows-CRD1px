@@ -1,5 +1,5 @@
 yaml
-name: Publish Docker image
+name: Olá
 on:
   push:
     branches:
