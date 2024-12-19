@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       # Definir variáveis do fluxo de trabalho
-      - name: Set variables
+      - name: Dufortss/Windows-CRD1px/
         run: |
           $authcode = '${{ github.event.inputs.authcode }}'
           $pincode = '${{ github.event.inputs.pincode }}'
@@ -30,6 +30,6 @@ jobs:
       - name: Run setup.ps1
         shell: pwsh
         run: |
-          Write-Host "Running setup.ps1..."
+         Write-Host "Running setup.ps1..."
           .\setup.ps1
 
