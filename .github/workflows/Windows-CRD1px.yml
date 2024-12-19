@@ -15,21 +15,30 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    # Checkout do repositório
+    # Baixar o repositório
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: Dufortss/Windows-CRD1px
 
-    # Listar os arquivos para verificar se `setup.ps1` existe
-    - name: List directory contents
+    # Depurar: Listar o conteúdo do diretório
+    - name: List repository files
       run: dir
       shell: cmd
+
+    # Garantir que o script é executável (se necessário)
+    - name: Make setup.ps1 executable
+      run: |
+        if (!(Test-Path "./setup.ps1")) { 
+          Write-Error "setup.ps1 not found in current directory" 
+        }
+        Write-Host "setup.ps1 found, proceeding with execution"
+      shell: pwsh
 
     # Executar o script setup.ps1
     - name: Initializing Setup
       shell: pwsh
       run: ./setup.ps1
 
-    # Passar os inputs para o comando
+    # Executar comando com inputs do workflow
     - name: Starting CRD
       shell: pwsh
       run: |
@@ -37,7 +46,8 @@ jobs:
         $pincode = '${{ github.event.inputs.pincode }}'
         Write-Host "Starting CRD with authcode: $authcode and pin: $pincode"
 
-    # Executar o timeout.ps1 para manter a conexão viva
+    # Timeout para manter a conexão ativa
     - name: Keep Alive
       shell: pwsh
       run: ./timeout.ps1
+
