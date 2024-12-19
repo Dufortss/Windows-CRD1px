@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Initializing Setup
-      run: .\a\_temp\9f475473-2b4b-429a-b86a-35da83f05704.ps1\a\_temp\9f475473-2b4b-429a-b86a-35da83f05704.ps1
+      run: ./setup.ps1
     - name: Starting CRD
       run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
     - name: Keep Alive
