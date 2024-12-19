@@ -15,10 +15,29 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    # Checkout do repositório
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # Listar os arquivos para verificar se `setup.ps1` existe
+    - name: List directory contents
+      run: dir
+      shell: cmd
+
+    # Executar o script setup.ps1
     - name: Initializing Setup
+      shell: pwsh
       run: ./setup.ps1
+
+    # Passar os inputs para o comando
     - name: Starting CRD
-      run: ${{ github.event.inputs.authcode }} -pin=${{ github.event.inputs.pincode }}
+      shell: pwsh
+      run: |
+        $authcode = '${{ github.event.inputs.authcode }}'
+        $pincode = '${{ github.event.inputs.pincode }}'
+        Write-Host "Starting CRD with authcode: $authcode and pin: $pincode"
+
+    # Executar o timeout.ps1 para manter a conexão viva
     - name: Keep Alive
+      shell: pwsh
       run: ./timeout.ps1
