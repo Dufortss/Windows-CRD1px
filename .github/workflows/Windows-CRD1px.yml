@@ -1,5 +1,3 @@
-
-          
 name: Windows-CRD1px
 
 on: 
@@ -28,10 +26,11 @@ jobs:
         run: |
           echo "Starting Chrome Remote Desktop..."
           powershell -Command "
-            $authcode='${{ github.event.inputs.authcode }}';
-            $pincode='${{ github.event.inputs.pincode }}';
-            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' `
-            --code=$authcode --pin=$pincode
+            $authcode = '${{ github.event.inputs.authcode }}';
+            $pincode = '${{ github.event.inputs.pincode }}';
+            Write-Host 'Authcode: $authcode';
+            Write-Host 'Pincode: $pincode';
+            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' --code=$authcode --pin=$pincode
           "
 
       - name: Keep Alive
