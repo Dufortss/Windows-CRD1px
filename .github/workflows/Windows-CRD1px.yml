@@ -22,7 +22,7 @@ jobs:
         run: |
           powershell -ExecutionPolicy Bypass -File ./setup.ps1
 
-         - name: Starting Chrome Remote Desktop
+      - name: Starting Chrome Remote Desktop
         run: |
           echo "Starting Chrome Remote Desktop..."
           powershell -Command "
@@ -33,8 +33,8 @@ jobs:
             & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' --code $authcode --pin $pincode
           "
 
-
       - name: Keep Alive
         run: |
           echo "Running Keep-Alive Script..."
           powershell -ExecutionPolicy Bypass -File ./timeout.ps1
+
