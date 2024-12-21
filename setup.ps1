@@ -51,8 +51,7 @@ $pincode = "778899"
 
 # Iniciar o Chrome Remote Desktop com o código de autenticação e PIN
 Write-Host "Iniciando o Chrome Remote Desktop..."
-Start-Process $remotingHostPath -ArgumentList "4/0AanRRruiWwhgWZyI4tuYxIW_Dji-Slsavi6HwUJ-JKP1Q7gRo0xAHimrUxgu6yxpE6iPCw", $authCode, "778899", $pincode
+Start-Process $remotingHostPath -ArgumentList "--code", $authCode, "--pin", $pincode
 
 Write-Host "Chrome Remote Desktop iniciado com sucesso!"
-
 
