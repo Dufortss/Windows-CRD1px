@@ -22,16 +22,6 @@ jobs:
         run: |
           powershell -ExecutionPolicy Bypass -File ./setup.ps1
 
-      - name: Starting Chrome Remote Desktop
-        run: |
-          echo "Starting Chrome Remote Desktop..."
-          powershell -Command "
-            $authcode = '${{ github.event.inputs.authcode }}';
-            $pincode = '${{ github.event.inputs.pincode }}';
-            Write-Host 'Authcode: $authcode';
-            Write-Host 'Pincode: $pincode';
-            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' --code $authcode --pin $pincode
-          "
 
       - name: Keep Alive
         run: |
