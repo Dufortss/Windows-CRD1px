@@ -46,7 +46,7 @@ Write-Host "Configuração inicial concluída com sucesso!" -ForegroundColor Gre
 $remotingHostPath = "C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe"
 
 # Código de autenticação e PIN (defina manualmente após a configuração inicial)
-$authCode = "4/0AanRRruiWwhgWZyI4tuYxIW_Dji-Slsavi6HwUJ-JKP1Q7gRo0xAHimrUxgu6yxpE6iPCw"
+$authCode = "4/0AanRRrsQ21p3NZPbg890yMxJnU4FcBpmMdBiLh4I5UoSwTrliJJzPILZv6Yu70FCbHr7CQ"
 $pincode = "778899"
 
 # Iniciar o Chrome Remote Desktop com o código de autenticação e PIN
