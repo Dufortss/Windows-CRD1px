@@ -30,7 +30,7 @@ jobs:
             $pincode = '${{ github.event.inputs.pincode }}';
             Write-Host 'Authcode: $authcode';
             Write-Host 'Pincode: $pincode';
-            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' --code=$authcode --pin=$pincode
+            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' --code $authcode --pin $pincode
           "
 
       - name: Keep Alive
