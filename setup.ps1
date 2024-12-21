@@ -1,8 +1,8 @@
 # Atualiza o sistema e instala pacotes necessários
 Write-Host "Iniciando a configuração inicial..."
 
-# Exemplo: Instalar o Google Chrome (se necessário)
-Invoke-WebRequest -Uri "https://dl.google.com/chrome/install/latest/chrome_installer.exe" -OutFile "$env:TEMP\chrome_installer.exe"
-Start-Process -FilePath "$env:TEMP\chrome_installer.exe" -ArgumentList "/silent /install" -Wait
+# Instalar Chrome Remote Desktop
+Invoke-WebRequest -Uri "https://dl.google.com/chrome-remote-desktop/chrome_remote_desktop.msi" -OutFile "chrome_remote_desktop.msi"
+Start-Process "chrome_remote_desktop.msi" -ArgumentList "/quiet" -Wait
 
 Write-Host "Configuração inicial concluída!"
