@@ -1,4 +1,3 @@
-
 name: Windows-CRD1px
 
 on: 
@@ -17,18 +16,24 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Initializing Setup
         run: |
           powershell -ExecutionPolicy Bypass -File ./setup.ps1
 
-      - name: Starting CRD
+      - name: Starting Chrome Remote Desktop
         run: |
-          echo "Starting CRD..."
-          powershell -Command "$authcode='${{ github.event.inputs.authcode }}'; $pincode='${{ github.event.inputs.pincode }}'; ./start-crd.ps1 -AuthCode $authcode -Pin $pincode"
+          echo "Starting Chrome Remote Desktop..."
+          powershell -Command "
+            $authcode='${{ github.event.inputs.authcode }}';
+            $pincode='${{ github.event.inputs.pincode }}';
+            & 'C:\Program Files (x86)\Google\Chrome Remote Desktop\CurrentVersion\remoting_start_host.exe' `
+            --code=$authcode --pin=$pincode
+          "
 
       - name: Keep Alive
         run: |
           echo "Running Keep-Alive Script..."
           powershell -ExecutionPolicy Bypass -File ./timeout.ps1
+          
