@@ -1,6 +1,6 @@
 # Configuração do tempo máximo de execução em minutos
 $MaxDurationInMinutes = 180  # Tempo total (ajuste conforme necessário)
-$IntervalInSeconds = 15     # Intervalo entre cada simulação de atividade
+$IntervalInSeconds = 30    # Intervalo entre cada simulação de atividade
 
 Write-Host "Keep-alive script iniciado. Duração máxima: $MaxDurationInMinutes minutos."
 
